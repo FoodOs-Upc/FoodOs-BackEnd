@@ -15,11 +15,13 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    public Long id;
+    private Long id;
 
     @Lob
-    @Column(length = 50000)
+    @Column(length = 5000000)
+    @Getter
     private byte[] imageProfile;
+
     @Embedded
     private EmailAddress emailAddress;
 
@@ -42,6 +44,9 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     }
     public String getFullName(){
         return this.personName.getFullName();
+    }
+    public String getEmailAddress(){
+        return this.emailAddress.addres();
     }
     public void updateName(String firstName, String lastName) {
         this.personName = new PersonName(firstName,lastName);
