@@ -41,6 +41,7 @@ public class Profile extends AbstractAggregateRoot<Profile> {
         this.imageProfile = imageProfile;
         this.emailAddress = new EmailAddress(email);
         this.personName = new PersonName(firstName,lastName);
+        this.createdAt = new Date();
     }
     public String getFullName(){
         return this.personName.getFullName();
@@ -50,5 +51,6 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     }
     public void updateName(String firstName, String lastName) {
         this.personName = new PersonName(firstName,lastName);
+        this.updatedAt = new Date();
     }
 }
