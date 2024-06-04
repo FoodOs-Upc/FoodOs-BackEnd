@@ -1,0 +1,66 @@
+package com.versoft.foodosbackend.Inventory.Interfaces;
+
+import com.versoft.foodosbackend.Inventory.Domain.Model.Aggregates.Inventory;
+import com.versoft.foodosbackend.Inventory.Domain.Model.Commands.CreateInventoryCommand;
+import com.versoft.foodosbackend.Inventory.Domain.Model.Queries.GetInventoryById;
+import com.versoft.foodosbackend.Inventory.Domain.Model.Queries.GetInventorybyIdProfile;
+import com.versoft.foodosbackend.Inventory.Domain.Service.InventoryCommandService;
+import com.versoft.foodosbackend.Inventory.Domain.Service.InventoryQueryService;
+import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource.CreateInventoryResource;
+import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource.InventoryResource;
+import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.CreateInventoryCommandFromResourceAssembler;
+import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.InventoryResourceFromEntityAssembler;
+import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Resource.CreateProfileResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+@RestController
+@RequestMapping(value = "/api/v1/inventory", produces = APPLICATION_JSON_VALUE)
+public class InventoryController {
+
+    private final InventoryQueryService inventoryQueryService;
+    private final InventoryCommandService inventoryCommandService;
+
+    public InventoryController(InventoryQueryService inventoryQueryService, InventoryCommandService inventoryCommandService) {
+        this.inventoryQueryService = inventoryQueryService;
+
+        this.inventoryCommandService = inventoryCommandService;
+    }
+
+    @GetMapping("/{profileId}")
+    public ResponseEntity<InventoryResource> getInventory(@PathVariable Long profileId) {
+
+        var getInventorybyIdProfile = new GetInventorybyIdProfile(profileId);
+
+        var inventory = inventoryQueryService.handle(getInventorybyIdProfile);
+
+
+        if(inventory.isEmpty()) return ResponseEntity.notFound().build();
+
+        var inventoryResource = InventoryResourceFromEntityAssembler.toResourceFromEntity(inventory.get());
+
+        return ResponseEntity.ok(inventoryResource);
+    }
+
+    @PostMapping
+    public ResponseEntity<InventoryResource> createInventory(@RequestBody CreateInventoryResource resource) throws IOException {
+        var createInventoryCommand = CreateInventoryCommandFromResourceAssembler.toCommandFromResource(resource);
+        var inventoryId = inventoryCommandService.handle(createInventoryCommand);
+        if(inventoryId==0L) return ResponseEntity.badRequest().build();
+
+        var getInventoryById = new GetInventoryById(inventoryId);
+        var inventory = inventoryQueryService.handle(getInventoryById);
+        if (inventory.isEmpty()) return ResponseEntity.badRequest().build();
+        var inventoryResource = InventoryResourceFromEntityAssembler.toResourceFromEntity(inventory.get());
+
+        return ResponseEntity.ok(inventoryResource);
+    }
+
+
+
+}
