@@ -1,5 +1,6 @@
 package com.versoft.foodosbackend.Inventory.Application.Internal.CommandServices;
 
+import com.versoft.foodosbackend.Inventory.Domain.Model.Commands.UpdateProductStateCommand;
 import com.versoft.foodosbackend.Inventory.Domain.Service.ProductCommandService;
 import com.versoft.foodosbackend.Inventory.Infrastructure.Persistence.JPA.repositories.ProductRepository;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.CreateProfileCommand;
@@ -14,9 +15,9 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         this.productRepository = productRepository;
     }
 
-    @Override
-    public Long handle(CreateProfileCommand command) {
 
-        return null;
+    @Override
+    public Long handles(UpdateProductStateCommand command) {
+        return 0L;
     }
 }
