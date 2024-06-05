@@ -15,7 +15,9 @@ public class TeamQueryServiceImpl implements TeamQueryService {
 
     private final TeamRepository teamRepository;
 
-    public TeamQueryServiceImpl(TeamRepository teamRepository) { this.teamRepository = teamRepository; }
+    public TeamQueryServiceImpl(TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
+    }
 
     @Override
     public Optional<Team> handle(GetTeamByIDQuery query) {
@@ -26,8 +28,4 @@ public class TeamQueryServiceImpl implements TeamQueryService {
     public List<Team> handle(GetAllTeamMemberQuery query) {
         return teamRepository.findAll();
     }
-
-    
-
-
 }
