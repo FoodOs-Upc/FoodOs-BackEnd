@@ -1,6 +1,7 @@
 package com.versoft.foodosbackend.Inventory.Domain.Model.Aggregates;
 
 import com.versoft.foodosbackend.Inventory.Domain.Model.Entities.File;
+import com.versoft.foodosbackend.Inventory.Domain.Model.ValueObjects.ProfileId;
 import com.versoft.foodosbackend.Shared.Domain.Aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,17 +20,24 @@ public class Inventory extends AuditableAbstractAggregateRoot<Inventory> {
     @OneToMany(mappedBy = "inventory")
     private List<File> files;
 
-    @Getter
-    private Long idProfile;
+
+    private ProfileId profileId;
 
     public Inventory() {
 
     }
 
-    public Inventory(Long idProfile){
-        this.idProfile = idProfile;
+    public Inventory(ProfileId profileId){
+        this.profileId = profileId;
         this.products = new ArrayList<Product>();
         this.files=new ArrayList<File>();
 
+    }
+    public void addNewProduc(Product product){
+        this.products.add(product);
+    }
+
+    public Long getProfileId(){
+        return this.profileId.profileId();
     }
 }

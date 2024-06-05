@@ -17,6 +17,7 @@ public class InventoryResourceFromEntityAssembler {
         List<ProductResource> productResources = entity.getProducts().stream()
                 .map(product -> new ProductResource(
                         product.getId(),
+                        product.getPhoto(),
                         product.getName(),
                         product.getState().toString(),
                         product.getDateProduct().expirationDate(),
@@ -32,6 +33,6 @@ public class InventoryResourceFromEntityAssembler {
                 ))
                 .toList();
 
-        return new InventoryResource(entity.getId(),productResources,fileResourceList,entity.getIdProfile());
+        return new InventoryResource(entity.getId(),productResources,fileResourceList,entity.getProfileId());
     }
 }

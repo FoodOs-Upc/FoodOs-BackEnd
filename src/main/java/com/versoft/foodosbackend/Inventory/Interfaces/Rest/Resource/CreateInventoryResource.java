@@ -1,4 +1,6 @@
 package com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource;
 
-public record CreateInventoryResource(Long id) {
+import org.springframework.web.multipart.MultipartFile;
+
+public record CreateInventoryResource(String email) {
 }
