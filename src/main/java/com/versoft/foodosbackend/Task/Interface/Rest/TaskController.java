@@ -1,6 +1,5 @@
 package com.versoft.foodosbackend.Task.Interface.Rest;
 
-import com.versoft.foodosbackend.Task.Domain.Model.Aggregates.Task;
 import com.versoft.foodosbackend.Task.Domain.Model.Commands.DeleteTaskCommand;
 import com.versoft.foodosbackend.Task.Domain.Model.Queries.GetAllTaskQuery;
 import com.versoft.foodosbackend.Task.Domain.Model.Queries.GetTaskByIdQuery;
@@ -17,13 +16,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.*;
 
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 
 @RestController
 @RequestMapping(value = "/api/v1/task", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Task", description = "Task Management Endpoints")
+
 public class TaskController {
     private final TaskCommandService taskCommandService;
     private final TaskQueryService taskQueryService;
@@ -40,6 +43,7 @@ public class TaskController {
         if (id == 0L) {
             return ResponseEntity.badRequest().build();
         }
+
         var getTaskByIdQuery = new GetTaskByIdQuery(id);
         var task = taskQueryService.handle(getTaskByIdQuery);
         if (task.isEmpty()) return ResponseEntity.badRequest().build();
@@ -68,9 +72,12 @@ public class TaskController {
     public ResponseEntity<TaskResource> updateTask(@PathVariable Long id, @RequestBody UpdateTaskResource updateTaskResource) {
         var updateTaskCommand = UpdateTaskCommandFromResourceAssembler.toCommandFromResource(id, updateTaskResource);
         var updateTask = taskCommandService.handle(updateTaskCommand);
+
         if (updateTask.isEmpty()) {
             return ResponseEntity.badRequest().build();
+
         }
+        
         var taskResource = TaskResourceFromEntityAssembler.toResourceFromEntity(updateTask.get());
         return ResponseEntity.ok(taskResource);
     }
@@ -79,6 +86,7 @@ public class TaskController {
     public ResponseEntity<?> deleteTask(@PathVariable Long id) {
         var deleteTaskCommand = new DeleteTaskCommand(id);
         taskCommandService.handle(deleteTaskCommand);
-        return ResponseEntity.ok("Task with given id successfully deleted");
+        return ResponseEntity.ok("Task with given id successfully deleted.");
     }
+
 }
