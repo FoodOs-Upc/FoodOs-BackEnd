@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+
 @RestController
 @RequestMapping(value = "/api/v1/team", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Team", description = "Team Management Endpoints")
+
 
 public class TeamController
 {
@@ -89,3 +91,4 @@ public class TeamController
         return ResponseEntity.ok("Course with given id successfully deleted");
     }
 }
+

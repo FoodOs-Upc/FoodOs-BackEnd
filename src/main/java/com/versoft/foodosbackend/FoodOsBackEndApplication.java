@@ -5,20 +5,28 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
+
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @SpringBootApplication
 @EnableJpaAuditing
+
+
 public class FoodOsBackEndApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FoodOsBackEndApplication.class, args);
     }
     @Bean
-    public WebMvcConfigurer corsconfigurer (){
-        return new WebMvcConfigurer() {
+    public WebMvcConfigurer corsconfigurer ()
+    {
+        return new WebMvcConfigurer()
+        {
             @Override
-            public void addCorsMappings (CorsRegistry registry) {
+            public void addCorsMappings (CorsRegistry registry)
+            {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:4200")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
@@ -28,3 +36,4 @@ public class FoodOsBackEndApplication {
         };
     }
 }
+

@@ -1,29 +1,40 @@
 package com.versoft.foodosbackend.Team.Domain.Model.Aggregates;
 
+
 import com.versoft.foodosbackend.Team.Domain.Model.Commands.CreateTeamMemberCommand;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
+
+
 import org.springframework.data.domain.AbstractAggregateRoot;
+
 
 @Entity
 @Table(name = "Team")
+
+
 public class Team extends AbstractAggregateRoot<Team> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+
     @Getter
     private Long teamid;
+
 
     @Getter
     private String name;
 
+
     @Getter
     private String profilePicture;
 
+
     @Getter
     private String rol;
+
 
     @Getter
     private String description;
