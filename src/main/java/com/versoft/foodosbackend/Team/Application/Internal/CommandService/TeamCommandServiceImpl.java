@@ -14,16 +14,13 @@ import java.util.Optional;
 public class TeamCommandServiceImpl implements TeamCommandService {
 
     private final TeamRepository teamRepository;
-
     public TeamCommandServiceImpl(TeamRepository teamRepository) { this.teamRepository = teamRepository; }
 
     @Override
     public Long handle(CreateTeamMemberCommand command) {
-
         if (teamRepository.existsByName(command.Name())) {
             throw new IllegalArgumentException("Team with same Full Name already exists");
         }
-
         var team = new Team(command);
         try {
             teamRepository.save(team);

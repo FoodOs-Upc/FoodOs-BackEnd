@@ -49,7 +49,7 @@ public class Task extends AbstractAggregateRoot<Task> {
         this.memberasignado = command.memberasignado();
     }
 
-    public Task updateTaskCommand (String title, String description, String date, String memberasignado){
+    public Task updateTaskInformation (String title, String description, String date, String memberasignado){
         this.title = title;
         this.description = description;
         this.date = date;
