@@ -4,7 +4,6 @@ import com.versoft.foodosbackend.Task.Domain.Model.Aggregates.Task;
 import com.versoft.foodosbackend.Task.Domain.Model.Commands.CreateTaskCommand;
 import com.versoft.foodosbackend.Task.Domain.Model.Commands.DeleteTaskCommand;
 import com.versoft.foodosbackend.Task.Domain.Model.Commands.UpdateTaskCommand;
-
 import java.util.Optional;
 
 public interface TaskCommandService {

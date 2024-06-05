@@ -1,4 +1,5 @@
 package com.versoft.foodosbackend.Team.Domain.Model.Aggregates;
+
 import com.versoft.foodosbackend.Team.Domain.Model.Commands.CreateTeamMemberCommand;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,8 +9,10 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 @Entity
 @Table(name = "Team")
 public class Team extends AbstractAggregateRoot<Team> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Getter
     private Long teamid;
 
@@ -26,20 +29,23 @@ public class Team extends AbstractAggregateRoot<Team> {
     private String description;
 
 
-    public Team() {
+    public Team()
+    {
         this.name = Strings.EMPTY;
         this.profilePicture = Strings.EMPTY;
         this.rol = Strings.EMPTY;
         this.description = Strings.EMPTY;
     }
-    public Team(String Name, String Profile_Picture, String Rol, String Description) {
+    public Team(String Name, String Profile_Picture, String Rol, String Description)
+    {
         this.name = Name;
         this.profilePicture = Profile_Picture;
         this.rol = Rol;
         this.description = Description;
     }
 
-    public Team (CreateTeamMemberCommand command){
+    public Team (CreateTeamMemberCommand command)
+    {
         this();
         this.name = command.name();
         this.profilePicture = command.profilePicture();
@@ -47,7 +53,8 @@ public class Team extends AbstractAggregateRoot<Team> {
         this.description = command.description();
     }
 
-    public Team updateTeamInformation(String Name, String Profile_Picture, String Rol, String Description){
+    public Team updateTeamInformation(String Name, String Profile_Picture, String Rol, String Description)
+    {
         this.name = Name;
         this.profilePicture = Profile_Picture;
         this.rol = Rol;

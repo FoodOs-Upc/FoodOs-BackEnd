@@ -14,6 +14,7 @@ import com.versoft.foodosbackend.Task.Interface.Rest.Transform.UpdateTaskCommand
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,21 +24,25 @@ import java.util.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
+
 @RestController
 @RequestMapping(value = "/api/v1/task", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Task", description = "Task Management Endpoints")
 
-public class TaskController {
+public class TaskController
+{
     private final TaskCommandService taskCommandService;
     private final TaskQueryService taskQueryService;
 
-    public TaskController(TaskCommandService taskCommandService, TaskQueryService taskQueryService) {
+    public TaskController(TaskCommandService taskCommandService, TaskQueryService taskQueryService)
+    {
         this.taskCommandService = taskCommandService;
         this.taskQueryService = taskQueryService;
     }
 
     @PostMapping
-    public ResponseEntity<TaskResource> createTask(@RequestBody CreateTaskResource createTaskResource) {
+    public ResponseEntity<TaskResource> createTask(@RequestBody CreateTaskResource createTaskResource)
+    {
         var createTaskCommand = CreateTaskCommandFromResourceAssembler.toCommandFromResource(createTaskResource);
         var id = taskCommandService.handle(createTaskCommand);
         if (id == 0L) {
@@ -52,7 +57,8 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResource>> getAllTask() {
+    public ResponseEntity<List<TaskResource>> getAllTask()
+    {
         var getAllTaskQuery = new GetAllTaskQuery();
         var task = taskQueryService.handle(getAllTaskQuery);
         var taskResource = task.stream().map(TaskResourceFromEntityAssembler::toResourceFromEntity).toList();
@@ -60,7 +66,8 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskResource> getTaskById(@PathVariable Long id) {
+    public ResponseEntity<TaskResource> getTaskById(@PathVariable Long id)
+    {
         var getTaskByIdQuery = new GetTaskByIdQuery(id);
         var task = taskQueryService.handle(getTaskByIdQuery);
         if (task.isEmpty()) return ResponseEntity.badRequest().build();
@@ -69,24 +76,28 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResource> updateTask(@PathVariable Long id, @RequestBody UpdateTaskResource updateTaskResource) {
+    public ResponseEntity<TaskResource> updateTask(@PathVariable Long id, @RequestBody UpdateTaskResource updateTaskResource)
+    {
         var updateTaskCommand = UpdateTaskCommandFromResourceAssembler.toCommandFromResource(id, updateTaskResource);
         var updateTask = taskCommandService.handle(updateTaskCommand);
 
-        if (updateTask.isEmpty()) {
+        if (updateTask.isEmpty())
+        {
             return ResponseEntity.badRequest().build();
 
         }
-        
+
         var taskResource = TaskResourceFromEntityAssembler.toResourceFromEntity(updateTask.get());
         return ResponseEntity.ok(taskResource);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable Long id) {
+    public ResponseEntity<?> deleteTask(@PathVariable Long id)
+    {
         var deleteTaskCommand = new DeleteTaskCommand(id);
         taskCommandService.handle(deleteTaskCommand);
         return ResponseEntity.ok("Task with given id successfully deleted.");
     }
 
 }
+
