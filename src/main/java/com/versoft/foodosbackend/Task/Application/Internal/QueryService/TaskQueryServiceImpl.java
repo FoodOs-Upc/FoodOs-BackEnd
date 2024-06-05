@@ -5,13 +5,18 @@ import com.versoft.foodosbackend.Task.Domain.Model.Queries.GetAllTaskQuery;
 import com.versoft.foodosbackend.Task.Domain.Model.Queries.GetTaskByIdQuery;
 import com.versoft.foodosbackend.Task.Domain.Service.TaskQueryService;
 import com.versoft.foodosbackend.Task.Infrastructure.Persistence.JPA.repositories.TaskRepository;
+
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
-public class TaskQueryServiceImpl implements TaskQueryService {
+
+public class TaskQueryServiceImpl implements TaskQueryService
+{
 
     private final TaskRepository taskRepository;
 

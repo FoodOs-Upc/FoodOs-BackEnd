@@ -10,7 +10,9 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 
 @Entity
 @Table(name = "Task")
-public class Task extends AbstractAggregateRoot<Task> {
+
+public class Task extends AbstractAggregateRoot<Task>
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
