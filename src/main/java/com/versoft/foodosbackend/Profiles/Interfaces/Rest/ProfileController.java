@@ -2,6 +2,7 @@ package com.versoft.foodosbackend.Profiles.Interfaces.Rest;
 
 import com.versoft.foodosbackend.Profiles.Domain.Model.Aggregates.Profile;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.CreateProfileCommand;
+import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.DeleProductProfileCommand;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Queries.GetProfileByIdQuery;
 import com.versoft.foodosbackend.Profiles.Domain.Services.ProfileCommandService;
 import com.versoft.foodosbackend.Profiles.Domain.Services.ProfileQueryService;
@@ -9,6 +10,7 @@ import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Resource.CreateProfile
 import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Resource.ProfileResource;
 import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Transform.CreateProfileCommandFromResourceAssembler;
 import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Transform.ProfileResourceFromEntityAssembler;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -22,7 +24,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
 @RestController
-@RequestMapping(value = "/api/v1/profiles",produces = "application/json")
+@RequestMapping(value = "/api/v1/profiles",produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Profile", description = "Profile Management Endpoints")
 
 public class ProfileController {
     private final ProfileCommandService profileCommandService;
@@ -56,6 +59,14 @@ public class ProfileController {
         if(profile.isEmpty()) return ResponseEntity.badRequest().build();
         var profileResource = ProfileResourceFromEntityAssembler.toResourceFromEntity(profile.get());
         return ResponseEntity.ok(profileResource);
+
+    }
+
+    @DeleteMapping("{profileId}")
+    public ResponseEntity<?> deleteProfile(@PathVariable("profileId") Long profileId) {
+        var deleteProfileCommand = new DeleProductProfileCommand(profileId);
+        this.profileCommandService.handle(deleteProfileCommand);
+        return ResponseEntity.ok("Profile deleted successfully");
 
     }
 }

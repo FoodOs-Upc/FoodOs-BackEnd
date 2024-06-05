@@ -11,18 +11,21 @@ import java.util.Date;
 @Entity
 public class Product extends AuditableAbstractAggregateRoot<Product> {
     @Lob
-    @Column(length = 50000)
+    @Column(length = 5000000)
+    @Getter
     private byte[] photo;
+
     @Getter
     private String name;
+
     @Getter
-    @Embedded
     private ProductState state;
+
     @Getter
     @Embedded
     private DateProduct dateProduct;
 
-    @Getter
+
     @ManyToOne
     @JoinColumn(name = "inventory_id")
     private Inventory inventory;
@@ -31,11 +34,12 @@ public class Product extends AuditableAbstractAggregateRoot<Product> {
 
     }
 
-    public Product(byte[] photo,String name,DateProduct dateProduct) {
+    public Product(byte[] photo,String name,DateProduct dateProduct,Inventory inventory) {
         this.photo=photo;
         this.name= name;
         this.state = ProductState.APPROXIMATELY;
         this.dateProduct= dateProduct;
+        this.inventory=inventory;
 
     }
 

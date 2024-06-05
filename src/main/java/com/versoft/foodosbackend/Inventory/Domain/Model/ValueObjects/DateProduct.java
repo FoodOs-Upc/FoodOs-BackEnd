@@ -24,6 +24,8 @@ public record DateProduct(
 
         var datetime = new Date();
         if (expirationDate == null || expirationDate.before(datetime)){
+            System.out.println(expirationDate);
+            System.out.println(datetime);
             throw new IllegalArgumentException("The expiration date cannot be before today's date.");
         }
     }
