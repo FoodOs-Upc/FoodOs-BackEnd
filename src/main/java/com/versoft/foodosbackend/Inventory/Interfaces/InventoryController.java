@@ -12,6 +12,7 @@ import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource.ProductResou
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.CreateInventoryCommandFromResourceAssembler;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.CreateProductCommandFromResourceAssembler;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.InventoryResourceFromEntityAssembler;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/api/v1/inventory", produces = APPLICATION_JSON_VALUE)
+@Tag(name = "Inventory", description = "Inventory Management Endpoints")
 public class InventoryController {
 
     private final InventoryQueryService inventoryQueryService;

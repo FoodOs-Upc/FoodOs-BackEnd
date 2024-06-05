@@ -1,8 +1,9 @@
 package com.versoft.foodosbackend.Inventory.Domain.Service;
 
-import com.versoft.foodosbackend.Inventory.Domain.Model.Commands.UpdateProductStateCommand;
-import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.CreateProfileCommand;
+import com.versoft.foodosbackend.Inventory.Domain.Model.Commands.DeleteProductCommand;
+import com.versoft.foodosbackend.Inventory.Domain.Model.Commands.GoodStateProductCommand;
 
 public interface ProductCommandService {
-    Long handles(UpdateProductStateCommand command);
+    Long handles(GoodStateProductCommand command);
+    void handle(DeleteProductCommand command);
 }
