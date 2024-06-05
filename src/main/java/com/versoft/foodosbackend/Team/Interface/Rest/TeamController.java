@@ -22,7 +22,7 @@ import java.util.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1/Team", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/team", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Team", description = "Team Management Endpoints")
 public class TeamController {
     private final TeamCommandService teamCommandService;

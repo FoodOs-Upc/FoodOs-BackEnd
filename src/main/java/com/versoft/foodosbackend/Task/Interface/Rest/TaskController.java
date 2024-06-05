@@ -22,7 +22,7 @@ import java.util.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1/Task", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/task", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Task", description = "Task Management Endpoints")
 public class TaskController {
     private final TaskCommandService taskCommandService;

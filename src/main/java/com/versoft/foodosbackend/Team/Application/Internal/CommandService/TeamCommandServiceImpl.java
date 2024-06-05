@@ -18,7 +18,7 @@ public class TeamCommandServiceImpl implements TeamCommandService {
 
     @Override
     public Long handle(CreateTeamMemberCommand command) {
-        if (teamRepository.existsByName(command.Name())) {
+        if (teamRepository.existsByName(command.name())) {
             throw new IllegalArgumentException("Team with same Full Name already exists");
         }
         var team = new Team(command);

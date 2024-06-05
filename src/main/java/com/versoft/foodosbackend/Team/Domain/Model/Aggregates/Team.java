@@ -41,10 +41,10 @@ public class Team extends AbstractAggregateRoot<Team> {
 
     public Team (CreateTeamMemberCommand command){
         this();
-        this.name = command.Name();
-        this.profilePicture = command.Profile_Picture();
-        this.rol = command.Rol();
-        this.description = command.Description();
+        this.name = command.name();
+        this.profilePicture = command.profilePicture();
+        this.rol = command.rol();
+        this.description = command.description();
     }
 
     public Team updateTeamInformation(String Name, String Profile_Picture, String Rol, String Description){
