@@ -22,7 +22,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
 @RestController
-@RequestMapping(value = "/api/v1/profiles",produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/profiles",produces = "application/json")
 
 public class ProfileController {
     private final ProfileCommandService profileCommandService;
@@ -44,7 +44,7 @@ public class ProfileController {
         return new ResponseEntity<>(profileResource, HttpStatus.CREATED);
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = {"application/json"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProfileResource> createProfile(@ModelAttribute CreateProfileResource resource) throws IOException {
 
         var createProfileCommand = CreateProfileCommandFromResourceAssembler.toCommandFromResource(resource);

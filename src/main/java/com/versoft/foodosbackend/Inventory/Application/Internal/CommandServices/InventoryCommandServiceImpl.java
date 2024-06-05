@@ -25,7 +25,6 @@ public class InventoryCommandServiceImpl implements InventoryCommandService {
 
         var inventory = new Inventory(command.id());
 
-
         inventoryRepository.save(inventory);
         return inventory.getId();
     }
