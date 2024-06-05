@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface TeamQueryService {
     List<Team> handle(GetAllTeamMemberQuery query);
     Optional<Team> handle(GetTeamByIDQuery query);
-
 }
