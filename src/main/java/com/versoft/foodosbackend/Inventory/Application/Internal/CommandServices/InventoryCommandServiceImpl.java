@@ -38,6 +38,7 @@ public class InventoryCommandServiceImpl implements InventoryCommandService {
         }
 
 
+
         var inventory = new Inventory(profileId.get());
 
         inventoryRepository.save(inventory);
