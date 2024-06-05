@@ -2,6 +2,7 @@ package com.versoft.foodosbackend.Profiles.Domain.Model.Aggregates;
 
 import com.versoft.foodosbackend.Profiles.Domain.Model.ValueObjects.EmailAddress;
 import com.versoft.foodosbackend.Profiles.Domain.Model.ValueObjects.PersonName;
+import com.versoft.foodosbackend.Shared.Domain.Aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,11 +12,8 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import java.util.Date;
 
 @Entity
-public class Profile extends AbstractAggregateRoot<Profile> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    private Long id;
+public class Profile extends AuditableAbstractAggregateRoot<Profile> {
+
 
     @Lob
     @Column(length = 5000000)
@@ -29,11 +27,7 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     private PersonName personName;
 
 
-    @CreatedDate
-    private Date createdAt;
 
-    @LastModifiedDate
-    private Date updatedAt;
 
     public Profile(){}
 
@@ -41,7 +35,7 @@ public class Profile extends AbstractAggregateRoot<Profile> {
         this.imageProfile = imageProfile;
         this.emailAddress = new EmailAddress(email);
         this.personName = new PersonName(firstName,lastName);
-        this.createdAt = new Date();
+
     }
     public String getFullName(){
         return this.personName.getFullName();
@@ -51,6 +45,5 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     }
     public void updateName(String firstName, String lastName) {
         this.personName = new PersonName(firstName,lastName);
-        this.updatedAt = new Date();
     }
 }
