@@ -46,4 +46,6 @@ public class Profile extends AuditableAbstractAggregateRoot<Profile> {
     public void updateName(String firstName, String lastName) {
         this.personName = new PersonName(firstName,lastName);
     }
+    public void updatePhoto(byte[] photo){this.imageProfile = photo;}
+    public void updateEmail(String email){this.emailAddress = new EmailAddress(email);}
 }

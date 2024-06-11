@@ -3,13 +3,16 @@ package com.versoft.foodosbackend.Profiles.Interfaces.Rest;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Aggregates.Profile;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.CreateProfileCommand;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.DeleProductProfileCommand;
+import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.UpdateProfileCommand;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Queries.GetProfileByIdQuery;
 import com.versoft.foodosbackend.Profiles.Domain.Services.ProfileCommandService;
 import com.versoft.foodosbackend.Profiles.Domain.Services.ProfileQueryService;
 import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Resource.CreateProfileResource;
 import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Resource.ProfileResource;
+import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Resource.UpdateProfileResource;
 import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Transform.CreateProfileCommandFromResourceAssembler;
 import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Transform.ProfileResourceFromEntityAssembler;
+import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Transform.UpdateProfileCommandFromUpdateProfileResourceAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -62,11 +65,21 @@ public class ProfileController {
 
     }
 
-    @DeleteMapping("{profileId}")
+    @DeleteMapping("/{profileId}")
     public ResponseEntity<?> deleteProfile(@PathVariable("profileId") Long profileId) {
         var deleteProfileCommand = new DeleProductProfileCommand(profileId);
         this.profileCommandService.handle(deleteProfileCommand);
         return ResponseEntity.ok("Profile deleted successfully");
 
+    }
+    @PutMapping(value="/{profileId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProfileResource> updateProfile(@PathVariable Long profileId, @ModelAttribute UpdateProfileResource resource) throws IOException {
+        var updateProfileCommand = UpdateProfileCommandFromUpdateProfileResourceAssembler.toCommandFromResource(profileId,resource);
+        var updateProfile = profileCommandService.handle(updateProfileCommand);
+        if(updateProfile.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+        var profileResource = ProfileResourceFromEntityAssembler.toResourceFromEntity(updateProfile.get());
+        return ResponseEntity.ok(profileResource);
     }
 }

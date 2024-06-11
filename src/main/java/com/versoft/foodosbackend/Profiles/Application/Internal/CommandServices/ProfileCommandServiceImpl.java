@@ -3,10 +3,13 @@ package com.versoft.foodosbackend.Profiles.Application.Internal.CommandServices;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Aggregates.Profile;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.CreateProfileCommand;
 import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.DeleProductProfileCommand;
+import com.versoft.foodosbackend.Profiles.Domain.Model.Commands.UpdateProfileCommand;
 import com.versoft.foodosbackend.Profiles.Domain.Model.ValueObjects.EmailAddress;
 import com.versoft.foodosbackend.Profiles.Domain.Services.ProfileCommandService;
 import com.versoft.foodosbackend.Profiles.Infrastructure.Persistence.JPA.Repositories.ProfileRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ProfileCommandServiceImpl implements ProfileCommandService {
@@ -40,5 +43,18 @@ public class ProfileCommandServiceImpl implements ProfileCommandService {
         }
 
         profileRepository.deleteById(command.profileId());
+    }
+
+    @Override
+    public Optional<Profile> handle(UpdateProfileCommand command) {
+        if(!profileRepository.existsById(command.id())) throw new IllegalArgumentException("Profile does not exist");
+        var profileToUpdate = profileRepository.findById(command.id()).get();
+
+        profileToUpdate.updateName(command.firstName(), command.lastName());
+        profileToUpdate.updateEmail(command.email());
+        profileToUpdate.updatePhoto(command.imageProfile());
+
+        var updateProfile = profileRepository.save(profileToUpdate);
+        return Optional.of(updateProfile);
     }
 }
