@@ -50,7 +50,7 @@ public class ProfileController {
         return new ResponseEntity<>(profileResource, HttpStatus.CREATED);
     }
 
-    @PostMapping(consumes = {"application/json"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProfileResource> createProfile(@ModelAttribute CreateProfileResource resource) throws IOException {
 
         var createProfileCommand = CreateProfileCommandFromResourceAssembler.toCommandFromResource(resource);
