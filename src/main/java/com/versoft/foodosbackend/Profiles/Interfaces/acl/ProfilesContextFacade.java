@@ -18,7 +18,7 @@ public class ProfilesContextFacade {
         this.profileCommandService = profileCommandService1;
     }
     public Long createProfile(byte[] imageProfile, String firstName,String email, String lastName) {
-        var createProfileCommand = new CreateProfileCommand(imageProfile, firstName, email, lastName);
+        var createProfileCommand = new CreateProfileCommand(imageProfile, email,firstName, lastName);
         return profileCommandService.handle(createProfileCommand);
 
     }
@@ -29,5 +29,6 @@ public class ProfilesContextFacade {
         if (profile.isEmpty()) return 0L;
         return profile.get().getId();
     }
+
 
 }
