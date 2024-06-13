@@ -5,6 +5,7 @@ package com.versoft.foodosbackend.iam.application.internal.commandservices;
 
 
 import com.versoft.foodosbackend.Inventory.Application.Internal.Outboundservices.acl.ExternalProfileService;
+import com.versoft.foodosbackend.iam.application.internal.outboundservices.acl.ExternalInventoryService;
 import com.versoft.foodosbackend.iam.application.internal.outboundservices.acl.ExternalProfileServiceToUser;
 import com.versoft.foodosbackend.iam.application.internal.outboundservices.hashing.HashingService;
 import com.versoft.foodosbackend.iam.application.internal.outboundservices.tokens.TokenService;
@@ -32,19 +33,21 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final UserRepository userRepository;
     private final HashingService hashingService;
     private final TokenService tokenService;
-    private final ExternalProfileServiceToUser profileServiceToUser;
+
 
     private final RoleRepository roleRepository;
     private final ExternalProfileServiceToUser externalProfileServiceToUser;
+    private final ExternalInventoryService externalInventoryService;
 
-    public UserCommandServiceImpl(UserRepository userRepository, HashingService hashingService, TokenService tokenService, ExternalProfileServiceToUser profileServiceToUser, RoleRepository roleRepository, ExternalProfileServiceToUser externalProfileServiceToUser) {
+    public UserCommandServiceImpl(UserRepository userRepository, HashingService hashingService, TokenService tokenService, ExternalProfileServiceToUser profileServiceToUser, RoleRepository roleRepository, ExternalProfileServiceToUser externalProfileServiceToUser, ExternalInventoryService externalInventoryService) {
         this.userRepository = userRepository;
         this.hashingService = hashingService;
         this.tokenService = tokenService;
-        this.profileServiceToUser = profileServiceToUser;
+
         this.roleRepository = roleRepository;
         this.externalProfileServiceToUser = externalProfileServiceToUser;
 
+        this.externalInventoryService = externalInventoryService;
     }
 
     /**
@@ -87,6 +90,9 @@ public class UserCommandServiceImpl implements UserCommandService {
 
         var profileId = externalProfileServiceToUser.createProfile(
                 command.imageProfile(), command.firstName(), command.email(), command.lastName());
+
+        externalInventoryService.createInventory(command.email());
+
 
 
 
