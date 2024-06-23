@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface TeamRepository extends JpaRepository<Team, Long> {
     Optional<Team> findByName(String Name);
     boolean existsByName(String Name);
-    boolean existsByNameAndTeamidIsNot(String Name, Long teamId);
+    boolean existsByNameAndIdIsNot(String Name, Long Id);
 
 
 }

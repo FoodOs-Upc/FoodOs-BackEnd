@@ -55,18 +55,18 @@ public class TeamController {
         return ResponseEntity.ok(teamResource);
     }
 
-    @GetMapping("/{team_id}")
-    public ResponseEntity<TeamResource> getTeamById(@PathVariable Long team_id) {
-        var getTeamByIdQuery = new GetTeamByIDQuery(team_id);
+    @GetMapping("/{id}")
+    public ResponseEntity<TeamResource> getTeamById(@PathVariable Long id) {
+        var getTeamByIdQuery = new GetTeamByIDQuery(id);
         var teams = teamQueryService.handle(getTeamByIdQuery);
         if (teams.isEmpty()) return ResponseEntity.badRequest().build();
         var teamResources = TeamResourceFromEntityAssembler.toResourceFromEntity(teams.get());
         return ResponseEntity.ok(teamResources);
     }
 
-    @PutMapping("/{team_id}")
-    public ResponseEntity<TeamResource> updateTeam(@PathVariable Long team_id, @RequestBody UpdateTeamMemberResource updateTeamMemberResource) {
-        var updateTeamCommand = UpdateTeamCommandFromResourceAssembler.toCommandFromResource(team_id, updateTeamMemberResource);
+    @PutMapping("/{id}")
+    public ResponseEntity<TeamResource> updateTeam(@PathVariable Long id, @RequestBody UpdateTeamMemberResource updateTeamMemberResource) {
+        var updateTeamCommand = UpdateTeamCommandFromResourceAssembler.toCommandFromResource(id, updateTeamMemberResource);
         var updateTeam = teamCommandService.handle(updateTeamCommand);
         if (updateTeam.isEmpty()) {
             return ResponseEntity.badRequest().build();
@@ -75,9 +75,9 @@ public class TeamController {
         return ResponseEntity.ok(teamResource);
     }
 
-    @DeleteMapping("/{team_id}")
-    public ResponseEntity<?> deleteTeam(@PathVariable Long team_id) {
-        var deleteTeamCommand = new DeleteTeamMemberCommand(team_id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTeam(@PathVariable Long id) {
+        var deleteTeamCommand = new DeleteTeamMemberCommand(id);
         teamCommandService.handle(deleteTeamCommand);
         return ResponseEntity.ok("Course with given id successfully deleted");
     }

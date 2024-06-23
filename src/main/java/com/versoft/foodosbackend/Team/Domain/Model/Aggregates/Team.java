@@ -11,7 +11,7 @@ public class Team extends AbstractAggregateRoot<Team> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    private Long teamid;
+    private Long id;
 
     @Getter
     private String name;

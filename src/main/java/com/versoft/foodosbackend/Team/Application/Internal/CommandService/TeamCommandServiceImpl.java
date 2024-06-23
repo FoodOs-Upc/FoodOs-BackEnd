@@ -27,12 +27,12 @@ public class TeamCommandServiceImpl implements TeamCommandService {
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while saving Team" + e.getMessage());
         }
-        return team.getTeamid();
+        return team.getId();
     }
 
     @Override
     public Optional<Team> handle(UpdateTeamMemberCommand command) {
-        if (teamRepository.existsByNameAndTeamidIsNot(command.Name(), command.team_id()))
+        if (teamRepository.existsByNameAndIdIsNot(command.Name(), command.team_id()))
             throw new IllegalArgumentException("Team with same Full Name already exists");
         var result =teamRepository.findById(command.team_id());
         if (result.isEmpty()) throw new IllegalArgumentException("Team does not exist");
