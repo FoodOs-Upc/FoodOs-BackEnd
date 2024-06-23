@@ -5,6 +5,4 @@ import com.versoft.foodosbackend.Inventory.Domain.Model.Commands.CreateProductCo
 
 public interface InventoryCommandService {
     Long handle(CreateInventoryCommand command);
-
-    Long handle(CreateProductCommand command);
 }

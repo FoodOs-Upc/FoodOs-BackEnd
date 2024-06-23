@@ -15,7 +15,7 @@ public class FoodOsBackEndApplication {
         SpringApplication.run(FoodOsBackEndApplication.class, args);
     }
     @Bean
-    public WebMvcConfigurer corsconfigurer (){
+    public WebMvcConfigurer corsConfigurer (){
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings (CorsRegistry registry) {

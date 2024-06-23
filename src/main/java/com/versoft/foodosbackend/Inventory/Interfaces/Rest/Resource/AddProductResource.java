@@ -7,6 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 
 public record AddProductResource(
+        String photoString,
+        String stateString,
+        String dateString,
                                  MultipartFile file,
                                  String name,
                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

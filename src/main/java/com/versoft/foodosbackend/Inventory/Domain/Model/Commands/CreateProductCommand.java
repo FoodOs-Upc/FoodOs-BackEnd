@@ -3,8 +3,9 @@ package com.versoft.foodosbackend.Inventory.Domain.Model.Commands;
 import java.util.Date;
 
 public record CreateProductCommand(
-        Long IdInventory,
-        byte[] photo,
+        String photoString,
+        String stateString,
+        String dateString,
         String name,
         Date expirationDate,
         Date productionDate
