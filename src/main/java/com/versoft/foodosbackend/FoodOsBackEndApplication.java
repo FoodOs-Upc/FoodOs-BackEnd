@@ -20,6 +20,7 @@ public class FoodOsBackEndApplication {
         SpringApplication.run(FoodOsBackEndApplication.class, args);
     }
     @Bean
+
     public WebMvcConfigurer corsconfigurer ()
     {
         return new WebMvcConfigurer()

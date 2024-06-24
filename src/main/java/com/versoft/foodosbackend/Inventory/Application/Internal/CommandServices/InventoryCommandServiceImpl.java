@@ -44,28 +44,4 @@ public class InventoryCommandServiceImpl implements InventoryCommandService {
         inventoryRepository.save(inventory);
         return inventory.getId();
     }
-
-    @Override
-    public Long handle(CreateProductCommand command) {
-
-        var inventoryQuery = inventoryRepository.findById(command.IdInventory());
-
-        if(inventoryQuery.isEmpty()){
-            throw new IllegalArgumentException("No exist inventory");
-        }
-        var inventory = inventoryQuery.get();
-
-        var product = new Product(command.photo(),command.name(), new DateProduct(command.expirationDate(), command.productionDate()),inventory);
-
-        inventory.addNewProduc(product);
-
-        inventoryRepository.save(inventory);
-        productRepository.save(product);
-
-        return inventory.getId();
-
-
-
-
-    }
 }

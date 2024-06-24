@@ -1,6 +1,5 @@
 package com.versoft.foodosbackend.Task.Interface.Rest;
 
-
 import com.versoft.foodosbackend.Task.Domain.Model.Commands.DeleteTaskCommand;
 import com.versoft.foodosbackend.Task.Domain.Model.Queries.GetAllTaskQuery;
 import com.versoft.foodosbackend.Task.Domain.Model.Queries.GetTaskByIdQuery;
