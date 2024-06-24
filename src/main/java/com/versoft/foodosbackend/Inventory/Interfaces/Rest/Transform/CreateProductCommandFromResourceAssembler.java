@@ -16,8 +16,6 @@ public class CreateProductCommandFromResourceAssembler {
                 resource.photoString(),
                 resource.stateString(),
                 resource.dateString(),
-                resource.name(),
-                resource.expirationDate(),
-                resource.productionDate());
+                resource.name());
     }
 }

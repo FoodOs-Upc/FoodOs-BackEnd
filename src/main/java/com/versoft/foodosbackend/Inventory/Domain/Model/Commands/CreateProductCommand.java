@@ -6,8 +6,6 @@ public record CreateProductCommand(
         String photoString,
         String stateString,
         String dateString,
-        String name,
-        Date expirationDate,
-        Date productionDate
+        String name
         ) {
 }
