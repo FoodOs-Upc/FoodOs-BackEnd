@@ -91,17 +91,19 @@ public class UserCommandServiceImpl implements UserCommandService {
         var profileId = externalProfileServiceToUser.createProfile(
                 command.imageProfile(), command.firstName(), command.email(), command.lastName());
 
-        externalInventoryService.createInventory(command.email());
+
 
 
 
 
 
         var user = new User(command.username(), hashingService.encode(
-                command.password()), command.role(),profileId.get());
+                command.password()), command.role(),profileId.get().profileId());
         System.out.println(user);
-
         userRepository.save(user);
+
+        externalInventoryService.createInventory(command.email());
+
         return userRepository.findByUsername(command.username());
     }
 }
