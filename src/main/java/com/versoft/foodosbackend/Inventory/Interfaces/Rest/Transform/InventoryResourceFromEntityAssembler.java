@@ -16,12 +16,11 @@ public class InventoryResourceFromEntityAssembler {
 
         List<ProductResource> productResources = entity.getProducts().stream()
                 .map(product -> new ProductResource(
+                        product.getPhotoString(),
+                        product.getStateString(),
+                        product.getDateString(),
                         product.getId(),
-                        product.getPhoto(),
-                        product.getName(),
-                        product.getState().toString(),
-                        product.getDateProduct().expirationDate(),
-                        product.getDateProduct().productionDate()))
+                        product.getName()))
                 .collect(Collectors.toList());
 
         List<FileResource> fileResourceList = entity.getFiles().stream()

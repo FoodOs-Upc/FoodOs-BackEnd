@@ -7,6 +7,7 @@ import com.versoft.foodosbackend.Inventory.Domain.Service.ProductQueryService;
 import com.versoft.foodosbackend.Inventory.Infrastructure.Persistence.JPA.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +26,10 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     @Override
     public Optional<Product> handle(GetProductByIdQuery query) {
         return productRepository.findById(query.id());
+    }
+
+    @Override
+    public List<Product> handle () {
+        return productRepository.findAll();
     }
 }

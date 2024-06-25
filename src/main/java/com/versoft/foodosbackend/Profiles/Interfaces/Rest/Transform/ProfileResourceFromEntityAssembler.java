@@ -5,6 +5,6 @@ import com.versoft.foodosbackend.Profiles.Interfaces.Rest.Resource.ProfileResour
 
 public class ProfileResourceFromEntityAssembler {
     public static ProfileResource toResourceFromEntity(Profile entity){
-        return new ProfileResource(entity.getId(),entity.getImageProfile(),entity.getFullName(),entity.getEmailAddress());
+        return new ProfileResource(entity.getId(),entity.getImageProfile(),entity.getLastName(), entity.getFirstName(), entity.getEmailAddress());
     }
 }

@@ -8,7 +8,6 @@ import com.versoft.foodosbackend.Inventory.Domain.Service.InventoryQueryService;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource.AddProductResource;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource.CreateInventoryResource;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource.InventoryResource;
-import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Resource.ProductResource;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.CreateInventoryCommandFromResourceAssembler;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.CreateProductCommandFromResourceAssembler;
 import com.versoft.foodosbackend.Inventory.Interfaces.Rest.Transform.InventoryResourceFromEntityAssembler;
@@ -63,24 +62,5 @@ public class InventoryController {
 
         return ResponseEntity.ok(inventoryResource);
     }
-
-    @PostMapping(value = "/{id}/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<InventoryResource> addProduct(
-            @PathVariable Long id,
-            @ModelAttribute AddProductResource resource) throws IOException {
-
-        var createProductCommand = CreateProductCommandFromResourceAssembler.toCommandFromResource(id,resource);
-        var inventoryId = inventoryCommandService.handle(createProductCommand);
-
-
-        var getInventoryById = new GetInventoryByIdQuery(inventoryId);
-        var inventory = inventoryQueryService.handle(getInventoryById);
-        if(inventory.isEmpty()) return ResponseEntity.badRequest().build();
-        var inventoryResource = InventoryResourceFromEntityAssembler.toResourceFromEntity(inventory.get());
-        return ResponseEntity.ok(inventoryResource);
-
-    }
-
-
-
 }
+

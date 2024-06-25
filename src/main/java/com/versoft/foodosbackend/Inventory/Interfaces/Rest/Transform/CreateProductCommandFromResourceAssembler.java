@@ -9,14 +9,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CreateProductCommandFromResourceAssembler {
-    public static CreateProductCommand toCommandFromResource(Long idInventory,AddProductResource resource) throws IOException {
+    public static CreateProductCommand toCommandFromResource(AddProductResource resource) {
 
 
         return new CreateProductCommand(
-                idInventory,
-                resource.file().getBytes(),
-                resource.name(),
-                resource.expirationDate(),
-                resource.productionDate());
+                resource.photoString(),
+                resource.stateString(),
+                resource.dateString(),
+                resource.name());
     }
 }
